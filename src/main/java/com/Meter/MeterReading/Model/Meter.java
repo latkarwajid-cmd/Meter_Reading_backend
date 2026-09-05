@@ -1,6 +1,8 @@
 package com.Meter.MeterReading.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,8 +31,24 @@ public class Meter {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties({"meters"})
     private User user;
+
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Integer userId;
+
+    public Integer getUserId() {
+        return user != null ? user.getUserId() : userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+        if (this.user == null && userId != null) {
+            this.user = new User();
+            this.user.setUserId(userId);
+        }
+    }
 
 
     @OneToMany(

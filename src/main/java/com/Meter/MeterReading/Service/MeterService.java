@@ -47,14 +47,12 @@ public class MeterService {
 
     public Meter addMeter(Meter meter) {
 
-        // Make sure a user was provided
-        if (meter.getUser() == null ||
-                meter.getUser().getUserId() == null) {
+        Integer userId = meter.getUser() != null ? meter.getUser().getUserId() : meter.getUserId();
 
+        // Make sure a user was provided
+        if (userId == null) {
             throw new RuntimeException("User ID is required");
         }
-
-        Integer userId = meter.getUser().getUserId();
 
         // Find the actual user from database
         User user = userRepository.findById(userId)
@@ -93,11 +91,8 @@ public class MeterService {
         );
 
         // Update user only if provided
-        if (updatedMeter.getUser() != null &&
-                updatedMeter.getUser().getUserId() != null) {
-
-            Integer userId =
-                    updatedMeter.getUser().getUserId();
+        Integer userId = updatedMeter.getUser() != null ? updatedMeter.getUser().getUserId() : updatedMeter.getUserId();
+        if (userId != null) {
 
             User user = userRepository.findById(userId)
                     .orElseThrow(() ->
