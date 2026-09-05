@@ -33,7 +33,23 @@ public class MeterReadingService {
     // ADD READING + SEND WHATSAPP
     // =========================================================
 
-    public MeterReading addReading(
+    public static class AddReadingResult {
+        private final MeterReading reading;
+        private final boolean whatsappSent;
+        private final String whatsappError;
+
+        public AddReadingResult(MeterReading reading, boolean whatsappSent, String whatsappError) {
+            this.reading = reading;
+            this.whatsappSent = whatsappSent;
+            this.whatsappError = whatsappError;
+        }
+
+        public MeterReading getReading() { return reading; }
+        public boolean isWhatsappSent() { return whatsappSent; }
+        public String getWhatsappError() { return whatsappError; }
+    }
+
+    public AddReadingResult addReading(
             Integer meterId,
             MeterReading reading) {
 
@@ -112,6 +128,9 @@ public class MeterReadingService {
         // WHATSAPP MESSAGE
         // -----------------------------------------------------
 
+        boolean whatsappSent = false;
+        String whatsappError = null;
+
         try {
 
             String response =
@@ -134,11 +153,13 @@ public class MeterReadingService {
                             + response
             );
 
+            whatsappSent = true;
 
         } catch (Exception e) {
 
             e.printStackTrace();
 
+            whatsappError = e.getMessage();
 
             /*
              * Reading is already saved.
@@ -156,7 +177,7 @@ public class MeterReadingService {
         }
 
 
-        return savedReading;
+        return new AddReadingResult(savedReading, whatsappSent, whatsappError);
     }
 
 

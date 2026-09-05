@@ -75,30 +75,23 @@ public class MeterReadingController {
 
         try {
 
-            MeterReading savedReading =
+            MeterReadingService.AddReadingResult result =
                     readingService.addReading(
                             meterId,
                             reading
                     );
 
 
-            return ResponseEntity.ok(
+            java.util.Map<String, Object> responseData = new java.util.HashMap<>();
+            responseData.put("success", true);
+            responseData.put("saved", true);
+            responseData.put("reading", result.getReading());
+            responseData.put("whatsapp", result.isWhatsappSent());
+            if (!result.isWhatsappSent() && result.getWhatsappError() != null) {
+                responseData.put("whatsappError", result.getWhatsappError());
+            }
 
-                    Map.of(
-
-                            "success",
-                            true,
-
-                            "saved",
-                            true,
-
-                            "reading",
-                            savedReading,
-
-                            "whatsapp",
-                            true
-                    )
-            );
+            return ResponseEntity.ok(responseData);
 
 
         } catch (Exception e) {
