@@ -13,8 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/reading")
-public class MeterReadingController {
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://mymeterreading.netlify.app"
+})public class MeterReadingController {
 
     private final MeterReadingService readingService;
     private final GeminiService geminiService;

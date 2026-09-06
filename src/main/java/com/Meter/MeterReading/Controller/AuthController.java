@@ -11,8 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:5173")
-public class AuthController {
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://mymeterreading.netlify.app"
+})public class AuthController {
 
     private final UserRepository userRepository;
 

@@ -10,8 +10,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/whatsapp")
-@CrossOrigin(origins = "http://localhost:5173")
-public class WhatsAppController {
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://mymeterreading.netlify.app"
+})public class WhatsAppController {
 
     private final WhatsAppService whatsappService;
 
