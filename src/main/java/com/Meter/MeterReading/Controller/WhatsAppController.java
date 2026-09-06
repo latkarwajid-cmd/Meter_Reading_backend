@@ -2,7 +2,7 @@ package com.Meter.MeterReading.Controller;
 
 import com.Meter.MeterReading.Model.WhatsAppRequest;
 import com.Meter.MeterReading.Service.WhatsAppService;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -3,7 +3,7 @@ package com.Meter.MeterReading.Controller;
 import com.Meter.MeterReading.Model.Meter;
 import com.Meter.MeterReading.Service.MeterService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 @RestController

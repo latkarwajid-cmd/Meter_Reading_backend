@@ -4,7 +4,7 @@ package com.Meter.MeterReading.Controller;
 import com.Meter.MeterReading.Model.User;
 import com.Meter.MeterReading.Service.UserService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
 @RestController
